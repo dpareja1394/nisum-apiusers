@@ -53,7 +53,7 @@ public class User implements Serializable {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column()
+    @Column(updatable = false, nullable = false)
     @ColumnDefault("random_uuid()")
     private String token;
 

@@ -1,6 +1,7 @@
 package com.nisum.apiusuarios.controller;
 
 
+import com.nisum.apiusuarios.dto.ErrorResponse;
 import com.nisum.apiusuarios.dto.UserRequest;
 import com.nisum.apiusuarios.dto.UserResponse;
 import com.nisum.apiusuarios.service.UserService;
@@ -25,9 +26,15 @@ public class UserController {
     @PostMapping(path = "/users",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserResponse> crearUsuarios(@RequestBody UserRequest userRequest) {
-        UserResponse userResponse = userService.createUser(userRequest);
-        return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    public ResponseEntity crearUsuarios(@RequestBody UserRequest userRequest) {
+        UserResponse userResponse = null;
+        try {
+            userResponse = userService.createUser(userRequest);
+            return new ResponseEntity<>(userResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(ErrorResponse.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 }

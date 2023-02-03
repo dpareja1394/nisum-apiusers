@@ -18,6 +18,8 @@ public class UserMapper {
     public static UserResponse domainToResponse(User user) {
         return UserResponse.builder()
                 .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
                 .created(user.getCreated())
                 .isActive(user.getIsActive())
                 .lastLogin(user.getLastLogin())

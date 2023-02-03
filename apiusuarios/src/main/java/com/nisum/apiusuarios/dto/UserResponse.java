@@ -10,9 +10,10 @@ import java.time.Instant;
 @Builder
 public class UserResponse {
     private String id;
+    private String name;
+    private String email;
     private Instant created;
     private Instant modified;
-
     @JsonProperty("last_login")
     private Instant lastLogin;
     private String token;
