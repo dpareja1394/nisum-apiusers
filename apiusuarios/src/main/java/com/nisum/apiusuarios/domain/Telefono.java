@@ -12,8 +12,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@Table(appliesTo = "phone")
-public class Phone implements Serializable {
+@Table(appliesTo = "telefono")
+public class Telefono implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,7 +27,7 @@ public class Phone implements Serializable {
     private String id;
 
     @ManyToOne
-    private User user;
+    private Usuario usuario;
 
     @Column(nullable = false)
     private String number;

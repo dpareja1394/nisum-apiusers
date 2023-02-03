@@ -9,9 +9,9 @@
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
     <changeSet id="202302030326" author="Daniel Pareja">
-        <createTable tableName="user">
+        <createTable tableName="usuario">
             <column name="id" type="varchar(255)">
-                <constraints primaryKey="true" primaryKeyName="user_pk" nullable="false"/>
+                <constraints primaryKey="true" primaryKeyName="usuario_pk" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
@@ -36,11 +36,11 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createTable tableName="phone">
+        <createTable tableName="telefono">
             <column name="id" type="varchar(255)">
-                <constraints primaryKey="true" primaryKeyName="phone_pk" nullable="false"/>
+                <constraints primaryKey="true" primaryKeyName="telefono_pk" nullable="false"/>
             </column>
-            <column name="user_id" type="varchar(255)">
+            <column name="usuario_id" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="number" type="varchar(10)">
@@ -53,20 +53,20 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createTable tableName="param">
+        <createTable tableName="parametro">
             <column name="id" type="varchar(20)">
-                <constraints primaryKey="true" primaryKeyName="parameter_pk" nullable="false"/>
+                <constraints primaryKey="true" primaryKeyName="parametro_pk" nullable="false"/>
             </column>
-            <column name="val" type="varchar(255)">
+            <column name="valor" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="phone" baseColumnNames="user_id" constraintName="phone_user_fk"
-                                 referencedTableName="user" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="telefono" baseColumnNames="usuario_id" constraintName="telefono_usuario_fk"
+                                 referencedTableName="usuario" referencedColumnNames="id"/>
 
-        <insert tableName="param">
+        <insert tableName="parametro">
             <column name="id" value="PASSWORD_PATTERN"/>
-            <column name="val" value="^[a-zA-Z]*$"/>
+            <column name="valor" value="^[a-zA-Z0-9]*$"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
