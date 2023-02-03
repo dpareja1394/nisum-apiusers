@@ -1,4 +1,4 @@
-package com.nisum.apiusuarios.mappers;
+package com.nisum.apiusuarios.service.mappers;
 
 import com.nisum.apiusuarios.domain.Phone;
 import com.nisum.apiusuarios.dto.PhoneRequest;

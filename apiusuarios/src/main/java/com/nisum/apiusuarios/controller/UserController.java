@@ -1,8 +1,9 @@
-package com.nisum.apiusuarios.controllers;
+package com.nisum.apiusuarios.controller;
 
 
 import com.nisum.apiusuarios.dto.UserRequest;
 import com.nisum.apiusuarios.dto.UserResponse;
+import com.nisum.apiusuarios.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,14 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-public class UsuarioController {
+public class UserController {
 
-    @PostMapping(path = "/usuarios",
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping(path = "/users",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponse> crearUsuarios(@RequestBody UserRequest userRequest) {
-        log.info("Ingresó a crearUsuarios");
-        return new ResponseEntity<UserResponse>(UserResponse.builder().name(userRequest.getName()).build(), HttpStatus.OK);
+        UserResponse userResponse = userService.createUser(userRequest);
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
 }
