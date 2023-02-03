@@ -1,8 +1,10 @@
 package com.nisum.apiusuarios.service.impl;
 
+import com.nisum.apiusuarios.domain.Param;
 import com.nisum.apiusuarios.domain.User;
 import com.nisum.apiusuarios.dto.UserRequest;
 import com.nisum.apiusuarios.dto.UserResponse;
+import com.nisum.apiusuarios.repository.ParamRepository;
 import com.nisum.apiusuarios.repository.UserRepository;
 import com.nisum.apiusuarios.service.PhoneService;
 import com.nisum.apiusuarios.service.UserService;
@@ -26,10 +28,13 @@ public class UserServiceImpl implements UserService {
 
     private final PhoneService phoneService;
 
+    private final ParamRepository paramRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PhoneService phoneService) {
+
+    public UserServiceImpl(UserRepository userRepository, PhoneService phoneService, ParamRepository paramRepository) {
         this.userRepository = userRepository;
         this.phoneService = phoneService;
+        this.paramRepository = paramRepository;
     }
 
 
@@ -53,8 +58,21 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validCreateUser(UserRequest userRequest) throws Exception {
-        if (!Utility.validaPattern(userRequest.getEmail(), Constant.PATTERN_EMAIL)) {
+        if(Utility.validateEmptyOrNull(userRequest.getName())) {
+            throw new Exception("Debe ingresar el nombre");
+        }
+
+        if(Utility.validateListNullOrSizeZero(userRequest.getPhones())) {
+            throw new Exception("Debe ingresar al menos un teléfono");
+        }
+
+        if (!Utility.validatePattern(userRequest.getEmail(), Constant.PATTERN_EMAIL)) {
             throw new Exception("El correo no cumple con el patrón");
+        }
+
+        Param parameterPassword = paramRepository.findById(Constant.PASSWORD_PATTERN).get();
+        if(!Utility.validatePattern(userRequest.getPassword(), parameterPassword.getVal())) {
+            throw new Exception("El password no cumple con el patrón "+parameterPassword.getVal());
         }
 
         boolean existsByEmail = userRepository.existsByEmail(userRequest.getEmail());

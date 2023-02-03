@@ -48,13 +48,7 @@ public class User implements Serializable {
     @Column(name = "last_login", nullable = false)
     private Instant lastLogin;
 
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     @Column(updatable = false, nullable = false)
-    @ColumnDefault("random_uuid()")
     private String token;
 
     @Column(name = "is_active", nullable = false)

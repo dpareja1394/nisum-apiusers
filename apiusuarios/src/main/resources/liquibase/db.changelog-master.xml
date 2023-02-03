@@ -53,7 +53,20 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <createTable tableName="param">
+            <column name="id" type="varchar(20)">
+                <constraints primaryKey="true" primaryKeyName="parameter_pk" nullable="false"/>
+            </column>
+            <column name="val" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
         <addForeignKeyConstraint baseTableName="phone" baseColumnNames="user_id" constraintName="phone_user_fk"
                                  referencedTableName="user" referencedColumnNames="id"/>
+
+        <insert tableName="param">
+            <column name="id" value="PASSWORD_PATTERN"/>
+            <column name="val" value="^[a-zA-Z]*$"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
