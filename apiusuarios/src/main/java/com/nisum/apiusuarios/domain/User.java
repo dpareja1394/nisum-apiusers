@@ -16,7 +16,7 @@ import java.time.Instant;
 @Data
 @Entity
 @Builder
-@Table(appliesTo = "users")
+@Table(appliesTo = "user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
