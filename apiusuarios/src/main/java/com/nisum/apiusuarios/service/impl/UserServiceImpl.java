@@ -1,11 +1,12 @@
 package com.nisum.apiusuarios.service.impl;
 
 import com.nisum.apiusuarios.domain.User;
-import com.nisum.apiusuarios.dto.ErrorResponse;
 import com.nisum.apiusuarios.dto.UserRequest;
 import com.nisum.apiusuarios.dto.UserResponse;
 import com.nisum.apiusuarios.repository.UserRepository;
+import com.nisum.apiusuarios.service.PhoneService;
 import com.nisum.apiusuarios.service.UserService;
+import com.nisum.apiusuarios.service.mappers.PhoneMapper;
 import com.nisum.apiusuarios.service.mappers.UserMapper;
 import com.nisum.apiusuarios.utility.Constant;
 import com.nisum.apiusuarios.utility.Utility;
@@ -23,10 +24,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final PhoneService phoneService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+
+    public UserServiceImpl(UserRepository userRepository, PhoneService phoneService) {
         this.userRepository = userRepository;
-
+        this.phoneService = phoneService;
     }
 
 
@@ -42,20 +45,23 @@ public class UserServiceImpl implements UserService {
         user.setIsActive(true);
         user.setToken(UUID.randomUUID().toString());
 
-        return UserMapper.domainToResponse(userRepository.save(user));
+        UserResponse userResponse = UserMapper.domainToResponse(userRepository.save(user));
+
+        userResponse.setPhones(PhoneMapper.domainToResponseList(phoneService.createPhones(userRequest.getPhones(), user)));
+
+        return userResponse;
     }
 
-    private void validCreateUser(UserRequest userRequest) throws Exception{
-        if(!Utility.validaPattern(userRequest.getEmail(), Constant.PATTERN_EMAIL)) {
+    private void validCreateUser(UserRequest userRequest) throws Exception {
+        if (!Utility.validaPattern(userRequest.getEmail(), Constant.PATTERN_EMAIL)) {
             throw new Exception("El correo no cumple con el patrón");
         }
 
         boolean existsByEmail = userRepository.existsByEmail(userRequest.getEmail());
-        if(existsByEmail) {
+        if (existsByEmail) {
             throw new Exception("El correo ya está registrado");
         }
     }
-
 
 
 }
