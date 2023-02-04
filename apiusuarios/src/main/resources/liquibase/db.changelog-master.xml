@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="202302030326" author="Daniel Pareja">
+        <createTable tableName="usuario">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" primaryKeyName="usuario_pk" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified" type="datetime"/>
+            <column name="last_login" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="token" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="telefono">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" primaryKeyName="telefono_pk" nullable="false"/>
+            </column>
+            <column name="usuario_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city_code" type="varchar(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_code" type="varchar(4)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="parametro">
+            <column name="id" type="varchar(20)">
+                <constraints primaryKey="true" primaryKeyName="parametro_pk" nullable="false"/>
+            </column>
+            <column name="valor" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="telefono" baseColumnNames="usuario_id" constraintName="telefono_usuario_fk"
+                                 referencedTableName="usuario" referencedColumnNames="id"/>
+
+        <insert tableName="parametro">
+            <column name="id" value="PASSWORD_PATTERN"/>
+            <column name="valor" value="^[a-zA-Z0-9]*$"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
