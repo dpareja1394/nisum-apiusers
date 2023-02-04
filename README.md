@@ -12,14 +12,12 @@
 ### Al traer la información pre-cargada no es necesario ejecutar el Script de creación de la base de datos. Sin embargo el Script se encuentra en la raíz con el nombre **ScriptDB.sql**
 ### Para ingresar a la base de datos en memoria *H2* se deben ingresar los siguientes datos:
 ```
-{
-  Saved Settings: Generic H2 (Embedded)
-  Setting Name: Generic H2 (Embedded)
-  Driver Class: org.h2.Driver
-  JDBC URL: jdbc:h2:mem:testdb
-  User Name: sa
-  Password:
-}
+Saved Settings: Generic H2 (Embedded)
+Setting Name: Generic H2 (Embedded)
+Driver Class: org.h2.Driver
+JDBC URL: jdbc:h2:mem:testdb
+User Name: sa
+Password:
 ``` 
 ### Se debe dejar el Password vacío puesto que no se puso contraseña para esta configuración de Base de datos para facilidad de la prueba.
 ### 1. Servicio de creación de usuarios
