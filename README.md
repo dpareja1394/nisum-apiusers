@@ -7,5 +7,20 @@
 ### Posterior a la ejecución del clean, se procede a ejecutar el comando ***mvn install*** para hacer la instalación de las librerías que se requieran.
 ### Una vez se tengan las dependencias instaladas en el entorno de ejecución se debe ejecutar el comando ***./mvnw spring-boot:run*** para que la aplicación inicie su ejecución desde la consola.
 ### 1. Servicio de creación de usuarios
-#### Tipo Post.
-#### 
+#### Se recomienda hacer la prueba en Postman.
+#### Tipo Post, URL: http://127.0.0.1:8080/users
+#### El JSON para ejecutar la prueba de creación de usuarios es el siguiente:
+```
+{
+  "name": "Juan Rodriguez",
+  "email": "juan@rodriguez.org",
+  "password": "hunter2",
+  "phones": [
+      {
+          "number":"1234567",
+          "citycode":"1",
+          "countrycode":"57"
+        }
+  ]
+}
+```
