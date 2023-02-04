@@ -20,4 +20,8 @@ public class Utility {
         return list==null || list.size() == 0;
     }
 
+    public static boolean validateObjectNull(Object object) {
+        return object==null;
+    }
+
 }
