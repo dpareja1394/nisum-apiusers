@@ -8,7 +8,7 @@
 ### Una vez se tengan las dependencias instaladas en el entorno de ejecución se debe ejecutar el comando ***./mvnw spring-boot:run*** para que la aplicación inicie su ejecución desde la consola.
 ### 1. Servicio de creación de usuarios
 #### Se recomienda hacer la prueba en Postman.
-#### Tipo Post, URL: http://127.0.0.1:8080/users
+#### Tipo POST, URL: http://127.0.0.1:8080/users
 #### El JSON para ejecutar la prueba de creación de usuarios es el siguiente:
 ```
 {
@@ -24,3 +24,14 @@
   ]
 }
 ```
+### 1. Servicio de modificación de Parámetros
+#### Se recomienda hacer la prueba en Postman.
+#### Tipo PUT, URL: http://127.0.0.1:8080/params
+#### El JSON para ejecutar la prueba de modificación del parámetro para el pattern de la contraseña es:
+```
+{
+  "id": "PASSWORD_PATTERN",
+  "newValue": "^[a-zA-Z0-9]*$"
+}
+```
+#### Para dar de baja al servicio se debe usar la combinación de teclas ***Ctrl + C***.
