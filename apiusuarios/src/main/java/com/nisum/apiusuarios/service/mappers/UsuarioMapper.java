@@ -4,6 +4,8 @@ import com.nisum.apiusuarios.domain.Usuario;
 import com.nisum.apiusuarios.dto.UserRequest;
 import com.nisum.apiusuarios.dto.UserResponse;
 
+import java.util.List;
+
 public class UsuarioMapper {
 
     public static Usuario requestToDomain(UserRequest userRequest) {
@@ -26,6 +28,10 @@ public class UsuarioMapper {
                 .modified(usuario.getModified())
                 .token(usuario.getToken())
                 .build();
+    }
+
+    public static List<UserResponse> domainToResponseList(List<Usuario> usuarios) {
+        return usuarios.stream().map(UsuarioMapper::domainToResponse).toList();
     }
 
 }

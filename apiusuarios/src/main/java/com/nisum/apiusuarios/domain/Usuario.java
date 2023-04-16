@@ -4,8 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Table;
@@ -15,6 +17,8 @@ import java.time.Instant;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Table(appliesTo = "usuario")
 public class Usuario implements Serializable {
@@ -53,4 +57,5 @@ public class Usuario implements Serializable {
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
+
 }

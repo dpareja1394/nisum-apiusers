@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -55,6 +56,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         userResponse.setPhones(TelefonoMapper.domainToResponseList(telefonoService.crearTelefonos(userRequest.getPhones(), user)));
 
         return userResponse;
+    }
+
+    @Override
+    public List<UserResponse> listarUsuarios() {
+        return UsuarioMapper.domainToResponseList(userRepository.findAll());
     }
 
     private void validarCrearUsuario(UserRequest userRequest) throws Exception {
