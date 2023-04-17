@@ -2,6 +2,7 @@ package com.nisum.apiusuarios.service.impl;
 
 import com.nisum.apiusuarios.domain.Parametro;
 import com.nisum.apiusuarios.domain.Usuario;
+import com.nisum.apiusuarios.dto.PhoneResponse;
 import com.nisum.apiusuarios.dto.UserRequest;
 import com.nisum.apiusuarios.dto.UserResponse;
 import com.nisum.apiusuarios.repository.ParametroRepository;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @Transactional
@@ -60,7 +62,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<UserResponse> listarUsuarios() {
-        return UsuarioMapper.domainToResponseList(userRepository.findAll());
+        return UsuarioMapper.domainToResponseList(userRepository.findAll()).stream().map(u -> {
+            u.setPhones(telefonoService.consultarTelefonosPorUsuario(u.getId()));
+            return u;
+        }).toList();
     }
 
     private void validarCrearUsuario(UserRequest userRequest) throws Exception {

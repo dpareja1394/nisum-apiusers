@@ -3,6 +3,7 @@ package com.nisum.apiusuarios.service.impl;
 import com.nisum.apiusuarios.domain.Telefono;
 import com.nisum.apiusuarios.domain.Usuario;
 import com.nisum.apiusuarios.dto.PhoneRequest;
+import com.nisum.apiusuarios.dto.PhoneResponse;
 import com.nisum.apiusuarios.repository.TelefonoRepository;
 import com.nisum.apiusuarios.service.TelefonoService;
 import com.nisum.apiusuarios.service.mappers.TelefonoMapper;
@@ -34,5 +35,10 @@ public class TelefonoServiceImpl implements TelefonoService {
                         }
                 ).collect(Collectors.toList())
         );
+    }
+
+    @Override
+    public List<PhoneResponse> consultarTelefonosPorUsuario(String usuarioId) {
+        return TelefonoMapper.domainToResponseList(phoneRepository.findByUsuarioId(usuarioId));
     }
 }

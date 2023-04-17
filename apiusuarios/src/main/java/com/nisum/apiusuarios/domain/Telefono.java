@@ -1,8 +1,10 @@
 package com.nisum.apiusuarios.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Table;
@@ -12,6 +14,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(appliesTo = "telefono")
 public class Telefono implements Serializable {
     private static final long serialVersionUID = 1L;
